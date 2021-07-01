@@ -1,5 +1,5 @@
 #  Install and Set Up a Hadoop Cluster!
-
+![alt text](hadoop.jpg "apache hadoop")
 This guide present how we can install and configure hadoop on clusters of machines.  Firstly, an overview will be presented in order to understand the main features of this software, and global architecture will be presented.
 
 ## Hadoop Overviw
