@@ -258,4 +258,110 @@ nano $HADOOP_HOME/etc/hadoop/yarn-site.xml
 </property>
 </configuration>
 ```
+
+## Some deyails about the memeory allocation
+The Memory allocation configuration is a primordial step, this configuration allows us to make good use of the cluster  because default values are not suitable for nodes with less than 8GB of RAM. This section will highlight how memory allocation works for MapReduce jobs.
+#### The Memory Allocation Properties
+A YARN job is executed with two kind of resources:
+-   An Application Master (AM) is responsible for monitoring the application and coordinating distributed executors in the cluster.
+-   Some executors that are created by the AM actually run the job. For a MapReduce jobs, they’ll perform map or reduce operation, in parallel.
+Both are run in  _containers_  on worker nodes. Each worker node runs a  _NodeManager_  daemon that’s responsible for container creation on the node. The whole cluster is managed by a  _ResourceManager_  that schedules container allocation on all the worker-nodes, depending on capacity requirements and current charge.
+
+Four types of resource allocations need to be configured properly for the cluster to work. These are:
+1.  How much memory can be allocated for YARN containers on a single node. This limit should be higher than all the others; otherwise, container allocation will be rejected and applications will fail. However, it should not be the entire amount of RAM on the node.
+    
+    This value is configured in  **yarn-site.xml**  with  **yarn.nodemanager.resource.memory-mb**.
+    
+2.  How much memory a single container can consume and the minimum memory allocation allowed. A container will never be bigger than the maximum, or else allocation will fail and will always be allocated as a multiple of the minimum amount of RAM.
+    
+    Those values are configured in  **yarn-site.xml** with  **yarn.scheduler.maximum-allocation-mb**  and  **yarn.scheduler.minimum-allocation-mb**.
+    
+3.  How much memory will be allocated to the ApplicationMaster. This is a constant value that should fit in the container maximum size.
+    
+    This is configured in  **mapred-site.xml**  with  **yarn.app.mapreduce.am.resource.mb**.
+    
+4.  How much memory will be allocated to each map or reduce operation. This should be less than the maximum size.
+    
+    This is configured in  **mapred-site.xml**  with properties  **mapreduce.map.memory.mb** and  **mapreduce.reduce.memory.mb**.
+
+The relationship between all those properties can be seen in the following figure:
+
+
+
+
+
 #### Configure Workers
+In the first steps of this tutorial we:
+	*  Created a new user for hadoop  (all machines)
+	*  Added all ip adresse into the hostname file (all machines)
+	*  Installed java on all machine (all machines)
+	* Genreated a pair of keys using RSA and share it with all machines
+	* Configured hadoop files on master machine
+Now we scopy the configureted hadoop reposetory into all slave machines:
+
+```{r, engine='bash', count_lines}
+scp -r hadoop slave1@home/winoubli
+scp -r hadoop slave2@home/winoubli
+scp -r hadoop slave3@home/winoubli
+```
+## Using and administration of the Hadoop cluster
+## HDFS
+### Framat HDFS
+Like the classic file system before using it be formated in order to check the metadata, in Hadoop, we can format  HDFS using the next command:
+```{r, engine='bash', count_lines}
+hdfs namenode -format
+```
+### Start and stop Hadoop services (deamons)
+As we descussed in the Hadoop architecture, Hadoop provides tow services Yarn and HDFS, for each services deamons be started in both master and slaves machines.
+In order to start the HDFS service, we run the next script on the master machine:
+```{r, engine='bash', count_lines}
+start-dfs.sh
+```
+This script will start **NameNode** and **SecondaryNameNode** on master machine , and **DataNode** on  slave machines. 
+We can check that the deamons have been started and are  running, using  the **jps** command on each node we can check that.
+ On **master machine **, you should see the following deamons (the PID number will be different):
+ ```{r, engine='bash', count_lines}
+90437 Jps
+90440 NameNode
+90441 SecondaryNameNode
+```
+And on *slave machines ** we should see the following deamons:
+ ```{r, engine='bash', count_lines}
+91576 Jps
+91580 DataNode
+```
+To stop HDFS cluster run the following command  from **master machine**:
+
+ ```{r, engine='bash', count_lines}
+stop-dfs.sh
+```
+Also HDFS provide a web user interface in order to manage the HDFS cluster, this interface can be accecible using this URL: http://mastermachineIP:9870
+
+
+## YARN
+### Start and Stop YARN
+ ```{r, engine='bash', count_lines}
+start-yarn.sh
+```
+This script will start **ResourceManager** on master machine , and **NodeManager** on  slave machines. 
+We can check that the deamons have been started and are  running, using  the `jps` command on each node we can check that.
+ On **master machine **, you should see the following deamons (the PID number will be different):
+ ```{r, engine='bash', count_lines}
+90437 Jps
+90440 ResourceManager
+```
+And on *slave machines ** we should see the following deamons:
+ ```{r, engine='bash', count_lines}
+91576 Jps
+91580 NodeManager
+```
+### Monitor YARN
+The **yarn** command provides utilities to manage your YARN cluster. You can also print a report of running nodes with the command:
+ ```{r, engine='bash', count_lines}
+yarn node -list
+```
+Also using **yarn** we can get a list of running applications using the newt command:
+ ```{r, engine='bash', count_lines}
+yarn application -list
+```
+As with HDFS, YARN provides a web user interface that will be accessible using this URL: http://mastermachineIP:8088/cluster
