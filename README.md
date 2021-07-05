@@ -336,7 +336,7 @@ To stop HDFS cluster run the following command  from **master machine**:
 stop-dfs.sh
 ```
 Also HDFS provide a web user interface in order to manage the HDFS cluster, this interface can be accecible using this URL: http://mastermachineIP:9870
-
+![alt text](hdfs.png "hdfs cluster")
 
 ## YARN
 ### Start and Stop YARN
@@ -365,3 +365,4 @@ Also using **yarn** we can get a list of running applications using the newt com
 yarn application -list
 ```
 As with HDFS, YARN provides a web user interface that will be accessible using this URL: http://mastermachineIP:8088/cluster
+![alt text](yarn.png "yarn cluster")
