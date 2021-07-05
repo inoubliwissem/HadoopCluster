@@ -2,7 +2,7 @@
 ![alt text](hadoop.jpg "apache hadoop")
 This guide present how we can install and configure hadoop on clusters of machines.  Firstly, an overview will be presented in order to understand the main features of this software, and global architecture will be presented.
 
-## Hadoop Overviw
+## Apche Hadoop: an  Overview
 ### What is Hadoop?
 Hadoop is an open-source Apache project that implements two distributed frameworks that was introduced by Google in 2004, these frameworks are designed for both  parallel processing applications (**Mapreduce**) and distributed file system for  large data sets (**GFS**). Therefore Hadoop  provides an implementation of Mapreduce framework and a distibuted file system which is called **Hadoop Distributed File System (HDFS) ** . Today lots of Big Companies ( Facebook, Yahoo, Netflix, eBay, etc)  are using Apache Hadoop to deal with big data in several use cases.
 Apache Haddop provides as a software is composed of the following components:
