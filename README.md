@@ -132,7 +132,7 @@ nano $HADOOP_HOME/etc/hadoop/core-site.xml
 Create HDFS folders that can contain both data and metadata used by namenode and datanode
 ```{r, engine='bash', count_lines}
 mkdir -p hdfs/datanode
-mkdir -p hdfs/datanode
+mkdir -p hdfs/namenode
 ```
 Edit  hdfs-site.xml configuration file:
 ```{r, engine='bash', count_lines}
