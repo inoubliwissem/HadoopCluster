@@ -286,7 +286,7 @@ Four types of resource allocations need to be configured properly for the cluste
 
 The relationship between all those properties can be seen in the following figure:
 
-
+![alt text](node.jpg "yarn configuration")
 
 
 
