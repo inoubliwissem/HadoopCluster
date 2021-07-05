@@ -366,3 +366,8 @@ yarn application -list
 ```
 As with HDFS, YARN provides a web user interface that will be accessible using this URL: http://mastermachineIP:8088/cluster
 ![alt text](yarn.png "yarn cluster")
+
+references:
+
+1) https://www.linode.com/docs/guides/how-to-install-and-set-up-hadoop-cluster/
+2) https://medium.com/@jootorres_11979/how-to-set-up-a-hadoop-3-2-1-multi-node-cluster-on-ubuntu-18-04-2-nodes-567ca44a3b12
