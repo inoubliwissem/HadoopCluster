@@ -142,7 +142,7 @@ nano $HADOOP_HOME/etc/hadoop/hdfs-site.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
-property>
+<property>
         <name>dfs.replication</name>
         <value>2</value>
     </property>
