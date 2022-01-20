@@ -77,7 +77,7 @@ ssh slave1
 ```
 ### Download and extract the last binary and stable version of hadoop
 ```{r, engine='bash', count_lines}
-wget https://mirror.ibcp.fr/pub/apache/hadoop/common/hadoop-3.2.2/hadoop-3.2.2.tar.gz
+wget https://mirror.ibcp.fr/pub/apache/hadoop/common/hadoop-3.2.2/hadoop-3.2.2.tar.gz ( you can check the URL)
 tar xvf hadoop-3.2.2.tar.gz
 mv hadoop-3.2.2 hadoop
 ```
